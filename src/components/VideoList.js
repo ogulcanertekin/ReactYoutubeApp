@@ -7,10 +7,13 @@ const VideoList = (props) => {
 
 }
 */
-const VideoList = ({videos}) => {           //destructing ES6
+
+//onVideoSelect propertysini App den yolluyoruz ve buradan da VideoItema yolluyoruz.Nested-->İç içe callback!
+
+const VideoList = ({videos,onVideoSelect}) => {           //destructing ES6
 
     const renderedList = videos.map((video)=>{          // map fonks kullanarak her bir video için  VideoItem componenti kullanılıyor.
-        return <VideoItem video={video}/>;
+        return <VideoItem onVideoSelect={onVideoSelect} video={video}/>;
     });
 
     return <div className="ui relaxed divided list">{renderedList}</div>

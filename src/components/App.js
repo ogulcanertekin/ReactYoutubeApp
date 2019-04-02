@@ -5,7 +5,7 @@ import VideoList from './VideoList';
 
 class App extends React.Component{
 
-    state={videos:[]};
+    state={videos:[],selectedVideo:null};               //selectedVideo state
 
     onTermSubmit = async (term) =>{
         const response = await youtube.get('/search',{                 //q query string--> q olması youtube documenttionda belirtldigi için.! ?q=
@@ -17,12 +17,19 @@ class App extends React.Component{
         this.setState({videos:response.data.items});
     };
 
+    onVideoSelect = (video) =>{                             //Deeply Nested Callbacks!! -Önce VideoListe daha sonra VideoItema prop gönderilecek...
+        console.log('From the App!',video);
+    };
+
     //onFormSubmitProp dememeiz gerekiyor ancak karısmasın.! onFormSubmit hatta onTermSubmit de olabilir.
     render(){                                                   //onFormSubmit bizim olusturdugumuz property. SearchBar içerisinde this.props.onFormSubmit!
         return(
             <div className="ui container">
                 <SearchBar onFormSubmitProp={this.onTermSubmit}/>
-                <VideoList videos={this.state.videos}/>             
+                <VideoList
+                    onVideoSelect={this.onVideoSelect}
+                    videos={this.state.videos}
+                />             
             </div>
         );
     }
