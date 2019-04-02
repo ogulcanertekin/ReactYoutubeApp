@@ -6,6 +6,10 @@ import VideoDetail from './VideoDetail';
 
 class App extends React.Component{
 
+    componentDidMount(){
+        this.onTermSubmit('Live Aid');
+    }
+
     state={videos:[],selectedVideo:null};               //selectedVideo state
 
     onTermSubmit = async (term) =>{
@@ -15,7 +19,10 @@ class App extends React.Component{
             }
         });
 
-        this.setState({videos:response.data.items});
+        this.setState({
+            videos:response.data.items,
+            selectedVideo:response.data.items[0]        //Arama yapıldıgında ilk öğe direk sol tarafa yerleşsin...
+        });
     };
 
     onVideoSelect = (video) =>{                             //Deeply Nested Callbacks!! -Önce VideoListe daha sonra VideoItema prop gönderilecek...
