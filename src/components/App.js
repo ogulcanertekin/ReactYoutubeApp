@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import youtube from '../apis/youtube';
 import VideoList from './VideoList';
+import VideoDetail from './VideoDetail';
 
 class App extends React.Component{
 
@@ -18,7 +19,7 @@ class App extends React.Component{
     };
 
     onVideoSelect = (video) =>{                             //Deeply Nested Callbacks!! -Önce VideoListe daha sonra VideoItema prop gönderilecek...
-        console.log('From the App!',video);
+        this.setState({selectedVideo:video});
     };
 
     //onFormSubmitProp dememeiz gerekiyor ancak karısmasın.! onFormSubmit hatta onTermSubmit de olabilir.
@@ -26,6 +27,7 @@ class App extends React.Component{
         return(
             <div className="ui container">
                 <SearchBar onFormSubmitProp={this.onTermSubmit}/>
+                <VideoDetail video={this.state.selectedVideo} />
                 <VideoList
                     onVideoSelect={this.onVideoSelect}
                     videos={this.state.videos}
