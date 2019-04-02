@@ -13,7 +13,13 @@ const VideoList = (props) => {
 const VideoList = ({videos,onVideoSelect}) => {           //destructing ES6
 
     const renderedList = videos.map((video)=>{          // map fonks kullanarak her bir video için  VideoItem componenti kullanılıyor.
-        return <VideoItem onVideoSelect={onVideoSelect} video={video}/>;
+        return (
+            <VideoItem 
+                key={video.id.videoId}
+                onVideoSelect={onVideoSelect} 
+                video={video}
+            />
+        );  
     });
 
     return <div className="ui relaxed divided list">{renderedList}</div>
