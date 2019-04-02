@@ -4,12 +4,16 @@ import youtube from '../apis/youtube';
 
 class App extends React.Component{
 
-    onTermSubmit = (term) =>{
-        youtube.get('/search',{                 //q query string--> q olması youtube documenttionda belirtldigi için.! ?q=
+    state={videos:[]};
+
+    onTermSubmit = async (term) =>{
+        const response = await youtube.get('/search',{                 //q query string--> q olması youtube documenttionda belirtldigi için.! ?q=
             params:{
                 q:term
             }
         });
+
+        this.setState({videos:response.data.items});
     };
 
     //onFormSubmitProp dememeiz gerekiyor ancak karısmasın.! onFormSubmit hatta onTermSubmit de olabilir.
@@ -17,6 +21,7 @@ class App extends React.Component{
         return(
             <div className="ui container">
                 <SearchBar onFormSubmitProp={this.onTermSubmit}/>
+                Found {this.state.videos.length} videos.
             </div>
         );
     }
